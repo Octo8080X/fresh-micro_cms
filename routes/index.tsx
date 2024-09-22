@@ -12,11 +12,13 @@ interface Data {
 
 export const handler = {
   GET: async function (req: Request, ctx: FreshContext) {
-    const cache = await getWebCache();
+    console.time("GET /");
 
+    const cache = await getWebCache();
     const cached = await cache.match(req.url);
     if (cached) {
       console.log(`cache hit ${req.url}`);
+      console.timeEnd("GET /");
       return cached;
     }
     console.log(`cache miss ${req.url}`);
@@ -41,6 +43,7 @@ export const handler = {
     );
 
     await cache.put(req.url, res.clone());
+    console.timeEnd("GET /");
 
     return res;
   },
