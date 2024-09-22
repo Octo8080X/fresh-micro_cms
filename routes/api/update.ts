@@ -42,5 +42,3 @@ export const handler = {
     return new Response("OK");
   },
 };
-
-
