@@ -36,6 +36,7 @@ export const handler = {
       throw new Error("Invalid signature.");
     }
 
+    console.log("Webhook received. updateWebCache");
     await updateWebCache();
 
     return new Response("OK");
