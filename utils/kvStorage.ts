@@ -1,9 +1,13 @@
-const kv = await Deno.openKv();
+/// <reference lib="deno.unstable" />
 
 const WEB_CACHE_VERSION = "web-cache-version" as const;
 
+async function getKvStorage() {
+  return await Deno.openKv();
+}
+
 export async function getCacheVersion() {
-  const version = await kv.get<string>([WEB_CACHE_VERSION]);
+  const version = await (await getKvStorage()).get<string>([WEB_CACHE_VERSION]);
   if (!version.value) {
     console.log(`${WEB_CACHE_VERSION} not found`);
     const newVersion = crypto.randomUUID();
@@ -15,5 +19,5 @@ export async function getCacheVersion() {
 }
 
 export async function setCacheVersion(version: string) {
-  return await kv.set([WEB_CACHE_VERSION], version, { expireIn: 10 * 1000 });
+  return await (await getKvStorage()).set([WEB_CACHE_VERSION], version, { expireIn: 10 * 1000 });
 }
