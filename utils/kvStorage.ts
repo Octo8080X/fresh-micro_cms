@@ -1,5 +1,7 @@
 /// <reference lib="deno.unstable" />
 
+import { CONSTS } from "./consts.ts";
+
 const WEB_CACHE_VERSION = "web-cache-version" as const;
 
 async function getKvStorage() {
@@ -19,5 +21,5 @@ export async function getCacheVersion() {
 }
 
 export async function setCacheVersion(version: string) {
-  return await (await getKvStorage()).set([WEB_CACHE_VERSION], version, { expireIn: 10 * 1000 });
+  return await (await getKvStorage()).set([WEB_CACHE_VERSION], version, { expireIn: CONSTS.microCms.contentsExpiresIn * 1000 });
 }
