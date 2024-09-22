@@ -18,6 +18,7 @@ export async function getCacheVersion() {
     await setCacheVersion(newVersion);
     return newVersion;
   }
+  console.log(`${WEB_CACHE_VERSION} found: ${version.value}`);
 
   return version.value;
 }
