@@ -25,6 +25,7 @@
     "$std/": "https://deno.land/std@0.216.0/",
     "@preact/signals": "https://esm.sh/*@preact/signals@1.2.2",
     "@preact/signals-core": "https://esm.sh/*@preact/signals-core@1.5.1",
+    "@std/crypto": "jsr:@std/crypto@^1.0.3",
     "daisyui": "npm:daisyui@^4.12.10",
     "html-to-text": "npm:html-to-text@^9.0.5",
     "microcms-js-sdk": "npm:microcms-js-sdk@^3.1.2",

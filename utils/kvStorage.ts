@@ -29,3 +29,9 @@ export async function setCacheVersion(version: string) {
     expireIn: CONSTS.microCms.contentsExpiresIn * 1000,
   });
 }
+
+export async function updateCacheVersion() {
+  const newVersion = crypto.randomUUID();
+  await setCacheVersion(newVersion);
+  return newVersion;
+} 

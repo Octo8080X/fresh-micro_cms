@@ -5,5 +5,6 @@ export const CONSTS = {
     contentsExpiresIn: Number(
       Deno.env.get("MICRO_CMS_CONTENTS_CACHE_EXPIRES_IN")!,
     ),
+    webHookSecret: Deno.env.get("MICRO_CMS_WEB_HOOK_SECRET")!,
   },
 } as const;
