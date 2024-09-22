@@ -1,14 +1,10 @@
 import { FreshContext } from "$fresh/server.ts";
-import { getWebCache, updateWebCache } from "../../utils/webCache.ts";
-import { resourceDomainConvertBack } from "../../utils/microcms.ts";
+import { updateWebCache } from "../../utils/webCache.ts";
 import { CONSTS } from "../../utils/consts.ts";
 import { timingSafeEqual } from "@std/crypto";
 
 export const handler = {
   POST: async function (req: Request, _ctx: FreshContext) {
-    console.log(req);
-    console.log(CONSTS.microCms.webHookSecret);
-
     const encoder = new TextEncoder();
     const data = encoder.encode(await req.text());
     const key = await crypto.subtle.importKey(
@@ -39,6 +35,8 @@ export const handler = {
     ) {
       throw new Error("Invalid signature.");
     }
+
+    await updateWebCache();
 
     return new Response("OK");
   },
