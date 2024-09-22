@@ -2,7 +2,7 @@
 
 import { CONSTS } from "./consts.ts";
 
-const WEB_CACHE_VERSION = "web-cache-version" as const;
+const WEB_CACHE_VERSION = "web-cache-version-1" as const;
 
 async function getKvStorage() {
   return await Deno.openKv();
