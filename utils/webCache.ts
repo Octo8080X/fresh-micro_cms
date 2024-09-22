@@ -5,5 +5,5 @@ export async function getWebCache() {
 }
 
 export async function updateWebCache() {
-  await updateCacheVersion()
+  await updateCacheVersion();
 }

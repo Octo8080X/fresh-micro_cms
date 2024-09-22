@@ -34,4 +34,4 @@ export async function updateCacheVersion() {
   const newVersion = crypto.randomUUID();
   await setCacheVersion(newVersion);
   return newVersion;
-} 
+}
