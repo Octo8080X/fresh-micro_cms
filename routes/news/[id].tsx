@@ -1,6 +1,7 @@
 import { FreshContext, PageProps } from "$fresh/server.ts";
 import { getNews, News, resourceDomainConvert } from "../../utils/microcms.ts";
 import { getWebCache } from "../../utils/webCache.ts";
+import { CONSTS } from "../../utils/consts.ts";
 
 interface Data {
   news: News;
@@ -27,7 +28,11 @@ export const handler = {
       news: newsRes.contents,
     });
 
-    res.headers.set("Expires", new Date(Date.now() + 10 * 1000).toUTCString());
+    res.headers.set(
+      "Expires",
+      new Date(Date.now() + CONSTS.microCms.contentsExpiresIn * 1000)
+        .toUTCString(),
+    );
 
     await cache.put(req.url, res.clone());
 

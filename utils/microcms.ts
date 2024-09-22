@@ -1,4 +1,4 @@
-import { createClient } from "microcms-js-sdk";
+import { createClient, MicroCMSListResponse } from "microcms-js-sdk";
 import { CONSTS } from "./consts.ts";
 import { convert } from "html-to-text";
 
@@ -27,18 +27,32 @@ export function getMicroCmsClient() {
   });
 }
 
-export async function getNewsList() {
+export async function getNewsList(
+  page: number,
+): Promise<
+  (MicroCMSListResponse<{ contents: News[] }> & { status: true }) | {
+    contents: [];
+    status: false;
+  }
+> {
   const client = getMicroCmsClient();
   try {
-    const res = await client.get<{ contents: News[] }>({ endpoint: "news" });
+    const res = await client.getList<{ contents: News[] }>({
+      endpoint: "news",
+      queries: {
+        limit: 2,
+        offset: page <= 0 ? 0 : (page - 1) * 2,
+      },
+    });
+
     return {
       status: true,
-      contents: res.contents,
+      ...res,
     };
   } catch (e) {
     console.error(e);
     return {
-      status: true,
+      status: false,
       contents: [],
     };
   }

@@ -1,6 +1,7 @@
-import { FreshContext, PageProps } from "$fresh/server.ts";
+import { FreshContext } from "$fresh/server.ts";
 import { getWebCache } from "../../../utils/webCache.ts";
 import { resourceDomainConvertBack } from "../../../utils/microcms.ts";
+import { CONSTS } from "../../../utils/consts.ts";
 
 export const handler = {
   GET: async function (req: Request, _ctx: FreshContext) {
@@ -21,7 +22,9 @@ export const handler = {
     const newResponse = new Response(blob, {
       headers: {
         ...res.headers,
-        "Expires": new Date(Date.now() + 10 * 1000).toUTCString(),
+        "Expires": new Date(
+          Date.now() + CONSTS.microCms.contentsExpiresIn * 1000,
+        ).toUTCString(),
       },
     });
 

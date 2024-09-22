@@ -9,7 +9,9 @@ async function getKvStorage() {
 }
 
 export async function getCacheVersion() {
-  const version = await (await getKvStorage()).get<string>([WEB_CACHE_VERSION]);
+  const kvStorage = await getKvStorage();
+  const version = await kvStorage.get<string>([WEB_CACHE_VERSION]);
+
   if (!version.value) {
     console.log(`${WEB_CACHE_VERSION} not found`);
     const newVersion = crypto.randomUUID();
@@ -21,5 +23,8 @@ export async function getCacheVersion() {
 }
 
 export async function setCacheVersion(version: string) {
-  return await (await getKvStorage()).set([WEB_CACHE_VERSION], version, { expireIn: CONSTS.microCms.contentsExpiresIn * 1000 });
+  const kvStorage = await getKvStorage();
+  return await kvStorage.set([WEB_CACHE_VERSION], version, {
+    expireIn: CONSTS.microCms.contentsExpiresIn * 1000,
+  });
 }
