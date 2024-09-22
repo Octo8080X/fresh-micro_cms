@@ -6,6 +6,7 @@ import { timingSafeEqual } from "@std/crypto";
 
 export const handler = {
   GET: async function (req: Request, _ctx: FreshContext) {
+    console.log(req);
     console.log(CONSTS.microCms.webHookSecret);
 
     const encoder = new TextEncoder();
